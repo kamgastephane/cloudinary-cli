@@ -41,6 +41,8 @@ Usage: cloudTool [options] [command]
    list|s [options]                          Search files and list them
    rename|r <public_id_old> <public_id_new>  Remane your public_id
    delete|d [options] <public_id>            Delete your file(s)
+   transform|t <transformation_name> <transformation_string> Create a transformation 
+
 ```    
 
 Run `cloudTool <command> -h` to see particular commands usage
@@ -53,6 +55,12 @@ Run `cloudTool <command> -h` to see particular commands usage
 **Multiple files**
 - `cloudTool u -a <path to file1> <path to file2> <path to file3> ...`
 
+```
+Options:
+
+   -f, --folder         upload to a specific folder on cloudinary
+
+```
 # How to fetch
 
 **Help command**
@@ -90,3 +98,8 @@ Options:
 
 **Multiple files**
 - `cloudTool d -a <public_id1> <public_id3> <public_id3> ...`
+
+# How to create a transformation
+
+`cloudTool transform <transformation_name> <transformation_string>` 
+e.g. `cloudTool transform boximg w_220,h_140,c_fill` 
