@@ -9,6 +9,7 @@ const upload = require('./config/upload')
 const search = require('./config/search')
 const update = require('./config/update')
 const deleteFile = require('./config/delete')
+const createTransform = require('./config/transform')
 const program = require('commander')
 const {prompt} = require('inquirer')
 
@@ -86,15 +87,20 @@ program
   .command('upload <file>')
   .alias('u')
   .description('Upload file(s)')
+  .option('-f, --folder <folder>', 'upload to the following folder on cloudinary')
   .option('-a, --array', 'Upload more than 1 file')
   .action((file, options, next) => {
+    var uploadOptions = {}
+    if (options.folder) {
+      uploadOptions.folder = options.folder
+    }
     if (options.array) {
       const array = []
       array.push(file, program.args)
       const files = array.toString().split(',')
-      upload(files, next)
+      upload(files, next, uploadOptions)
     } else {
-      upload([file], next)
+      upload([file], next, uploadOptions)
     }
     console.log('Uploading...')
   })
@@ -160,6 +166,24 @@ program
         console.log('Deleting...')
       }
     })
+  })
+
+  /**
+  * Setting command to create a transformation
+  * @param {String} name:parameters
+  *  e.g. $ cloudTool transform small_fill w_150,h_100,c_fill
+  */
+program
+  .command('transform <name> <parameters>')
+  .alias('t')
+  .description('create a transformation')
+  .action((name, parameters, next) => {
+    if (name && parameters) {
+      createTransform(name, parameters, next)
+    } else {
+      console.log('name and parameter should be defined!')
+    }
+    console.log('Creating transformation...')
   })
 
 program.parse(process.argv)

@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`createTransform successfully create a transformation 1`] = `undefined`;
+
 exports[`delete return error if wrong publicId 1`] = `undefined`;
 
 exports[`delete successfully delete file 1`] = `undefined`;

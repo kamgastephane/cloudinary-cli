@@ -3,6 +3,7 @@ const file = require('../config/file')
 let upload = require('../config/upload')
 let update = require('../config/update')
 let deleteFun = require('../config/delete')
+let createTransform = require('../config/transform')
 
 describe('env', () => {
   const data = {
@@ -58,5 +59,14 @@ describe('delete', () => {
       console.log(`Successfully deleted ${publicId}`)
     })
     expect(deleteFun(['oldname'])).toMatchSnapshot()
+  })
+})
+
+describe('createTransform', () => {
+  it('successfully create a transformation', () => {
+    createTransform = jest.fn().mockImplementation((name, parameters) => {
+      console.log('transformation testTransform created!')
+    })
+    expect(createTransform('testTransform', 'w_100,h_200')).toMatchSnapshot()
   })
 })

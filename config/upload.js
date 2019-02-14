@@ -1,6 +1,6 @@
 const cloudinary = require('./configCloudinary')
 
-function upload (data, next) {
+function upload (data, next, options) {
   data.forEach(filePath => {
     cloudinary.uploader.upload(filePath, (result, next) => {
       if (result.error) {
@@ -13,7 +13,7 @@ height: ${result.height}
 url: ${result.url || result.secure_url}`)
       }
       return next
-    })
+    }, options)
   })
 }
 
